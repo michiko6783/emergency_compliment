@@ -20,10 +20,15 @@ router.get('/', function(req, res, next) {
     niceComment: compliment });
 });
 
-router.get('/username', function(req, res) {
-  var name = "username";
+app.get('/users/:user_id/profile_url', function(req, res, next) {
+  var user_id = req.params.user_id;
 
-  res.send(username)
-})
+  UserDatabase.find(user_id, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(...create a 404 error...);
+
+    res.json('cdn.example.com/' + user.profile_url);
+  });
+});
 
 module.exports = router;
